@@ -641,9 +641,9 @@ class ClassificationMetric(BinaryLabelDatasetMetric):
             AttributeError: `privileged_groups` or `unprivileged_groups` 
                 must be provided at initialization to condition on them.
         """
-        print("-->selection rate privileged", privileged)
-        print("-->num positive:", self.num_pred_positives(privileged=privileged))
-        print("-->num instance:", self.num_instances(privileged=privileged))
+        # print("-->selection rate privileged", privileged)
+        # print("-->num positive:", self.num_pred_positives(privileged=privileged))
+        # print("-->num instance:", self.num_instances(privileged=privileged))
         print(self.num_pred_positives(privileged=privileged)
               / self.num_instances(privileged=privileged))
 

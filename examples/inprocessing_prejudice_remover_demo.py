@@ -58,7 +58,7 @@ import random
 seed = 1
 random.seed(seed)
 np.random.seed(seed)
-tf.random.set_random_seed(seed)
+tf.random.set_seed(seed)
 MAX_NUM = 1000
 processing_name = "PR"
 
@@ -91,7 +91,7 @@ def PR_metric_test(dataset_name):
     if dataset_name == "Bank":
         name = "Bank"
         BATCH_SIZE = 128
-        EPOCHS = 50
+        EPOCHS = 1000
     elif dataset_name == "Adult income":
         name = "Adult"
         BATCH_SIZE = 128
@@ -103,7 +103,7 @@ def PR_metric_test(dataset_name):
     else:
         name = "Compas"
         BATCH_SIZE = 128
-        EPOCHS = 100
+        EPOCHS = 1000
 
 
     dataset_orig = eval(function)()
@@ -130,7 +130,7 @@ def PR_metric_test(dataset_name):
     # orig_model.fit(dataset.features, dataset.labels.ravel())
 
     y_test = dataset_orig_test.labels.ravel()
-    y_pred = orig_model.predict_classes(dataset_orig_test.features)
+    y_pred = np.argmax(orig_model.predict(dataset_orig_test.features), axis=1)
     print("-->prediction accuracy on test data", accuracy_score(list(y_test), list(y_pred)))
 
     def new_inputs_to_dataset(new_inputs, original_dataset):
@@ -575,6 +575,6 @@ def metric_test(dataset_name):
         multi_metric_names = ["stat_par_diff", "avg_odds_diff", "eq_opp_diff"]
         Plot_class.plot_acc_multi_metric(orig_metrics, pd_metrics, multi_metric_names)
 
-dataset_name = "Compas"
+dataset_name = "German credit"
 # metric_test(dataset_name)
 PR_metric_test(dataset_name)

@@ -97,10 +97,10 @@ class CausalClassficationMetric(ClassificationMetric):
         probabilities = []
         sensitive_attribute = list(self.privileged_groups[0].keys())[0]
         sensitive_index = self.dataset.feature_names.index(sensitive_attribute)
-        print("-->sensitive_index:", sensitive_index)
+        # print("-->sensitive_index:", sensitive_index)
         sensitive_values = set([data[sensitive_index] for data in self.dataset.features])
         for value in sensitive_values:
-            print("-->value", value)
+            # print("-->value", value)
             all_inputs, all_labels = self.sensitive_value_filter(sensitive_indexs=[sensitive_index], sensitive_values=[value],
                                                      all_inputs=self.dataset.features, all_labels=self.classified_dataset.labels)
             print("-->length for attribute %s value %d is %d" % (sensitive_attribute, value, len(all_inputs)))
@@ -128,17 +128,13 @@ class CausalClassficationMetric(ClassificationMetric):
             sensitive_values.append(set([data[sensitive_index] for data in self.dataset.features]))
             # print("-->length of dataset", len(self.dataset.features))
 
-        print("-->sensitive_attributes", sensitive_attributes)
-        print("-->sensitive_indexs", sensitive_indexs)
-        print("-->sensitive_values", sensitive_values)
-
         indexs = [[0, 0], [0, 1], [1, 0], [1, 1]]
         for condition in indexs:
             # e.g. [0, 0]
             values = []
             for i in range(0, len(condition)):
                 values.append(list(sensitive_values[i])[condition[i]])
-            print("-->values' condition:", values)
+            # print("-->values' condition:", values)
             all_inputs, all_labels = self.sensitive_value_filter(sensitive_indexs=sensitive_indexs,
                                                                  sensitive_values=values,
                                                                  all_inputs=self.dataset.features,
@@ -317,7 +313,6 @@ class CausalClassficationMetric(ClassificationMetric):
         # print("-->sensitive_values", sensitive_values)
         print("-->length:", len(self.dataset.features))
         for i in range(0, len(self.dataset.features)):
-            print("-->i", i)
             predicted_labels = []
             input = self.dataset.features[i]
             # print("-->sensitive features", [input[i] for i in sensitive_indexs])
@@ -369,7 +364,10 @@ class CausalClassficationMetric(ClassificationMetric):
                                 sensitive_indexs = [distorted_input_dataset.feature_names.index(attr) for attr in self.classified_dataset.protected_attribute_names]
                                 distorted_input_dataset.protected_attributes[0] = [distorted_input[index] for index in sensitive_indexs]
                                 # y_val_pred_prob = model.predict(distorted_input_dataset).scores[0]
-                                y_val_pred_prob = model.predict(distorted_input_dataset.features)
+                                try:
+                                    y_val_pred_prob = model.predict(distorted_input_dataset.features)
+                                except:
+                                    y_val_pred_prob = model.predict(distorted_input_dataset).scores
 
                 if thresh_arr == None:
                     distorted_input.astype(int)

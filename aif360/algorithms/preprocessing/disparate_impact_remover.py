@@ -48,17 +48,29 @@ class DisparateImpactRemover(Transformer):
             the distributions of attributes conditioned on the protected
             attribute must be the same.
         """
-        if not self.sensitive_attribute:
+        if isinstance(self.sensitive_attribute, str):
+            # for univariate
             self.sensitive_attribute = dataset.protected_attribute_names[0]
+            features = dataset.features.tolist()
+            index = dataset.feature_names.index(self.sensitive_attribute)
+            repairer = self.Repairer(features, index, self.repair_level, False)
 
-        features = dataset.features.tolist()
-        index = dataset.feature_names.index(self.sensitive_attribute)
-        repairer = self.Repairer(features, index, self.repair_level, False)
-
-        repaired = dataset.copy()
-        repaired_features = repairer.repair(features)
-        repaired.features = np.array(repaired_features, dtype=np.float64)
-        # protected attribute shouldn't change
-        repaired.features[:, index] = repaired.protected_attributes[:, 0]
+            repaired = dataset.copy()
+            repaired_features = repairer.repair(features)
+            repaired.features = np.array(repaired_features, dtype=np.float64)
+            # protected attribute shouldn't change
+            repaired.features[:, index] = repaired.protected_attributes[:, 0]
+        else:
+            # self.sensitive_attribute = dataset.protected_attribute_names
+            # for multivariate
+            indexs = [dataset.feature_names.index(attribute) for attribute in self.sensitive_attribute]
+            repaired = dataset.copy()
+            for index in indexs:
+                features = repaired.features.tolist()
+                repairer = self.Repairer(features, index, self.repair_level, False)
+                repaired_features = repairer.repair(features)
+                repaired.features = np.array(repaired_features, dtype=np.float64)
+                # protected attribute shouldn't change
+                repaired.features[:, index] = dataset.protected_attributes[:, 0]
 
         return repaired

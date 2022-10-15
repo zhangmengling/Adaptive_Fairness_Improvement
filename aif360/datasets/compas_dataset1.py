@@ -42,17 +42,6 @@ class CompasDataset_1(StandardDataset):
                      'priors_count', 'c_charge_degree',
                      'is_violent_recid', 'decile_score', 'v_decile_score','priors_count',
                      'two_year_recid'],
-                 # features_to_keep=['sex', 'age', 'age_cat', 'race',
-                 #                   'juv_fel_count', 'decile_score', 'juv_misd_count', 'juv_other_count',
-                 #                   'priors_count', 'c_charge_degree', 'is_recid',
-                 #                   'is_violent_recid', 'decile_score', 'v_decile_score', 'priors_count', 'start', 'end',
-                 #                   'event',
-                 #                   'two_year_recid'],
-                 # features_to_keep = ['sex', 'age', 'age_cat', 'race', 'juv_felclear_count', 'two_year_recid'],
-                 # features_to_keep=['sex', 'age', 'age_cat', 'race',
-                 #                   'juv_fel_count', 'juv_misd_count', 'juv_other_count',
-                 #                   'priors_count', 'c_charge_degree',
-                 #                   'two_year_recid'],
                  features_to_drop=[], na_values=[],
                  custom_preprocessing=default_preprocessing,
                  metadata=default_mappings):
@@ -113,14 +102,6 @@ class CompasDataset_1(StandardDataset):
                                               na_values=na_values, metadata=metadata)
 
         self.categorical_features = categorical_features
-        # self.column_names = [feature for feature in column_names if feature not in features_to_drop]
-        # try:
-        #     self.column_names.remove(label_name)
-        # except:
-        #     print("-->cannot remove label_name")
-        # feature_names = ['sex', 'age', 'race', 'juv_fel_count', 'decile_score', 'juv_misd_count', 'juv_other_count', 'priors_count',
-        #  'is_recid', 'is_violent_recid', 'v_decile_score', 'start', 'end', 'event', 'age_cat=25 - 45',
-        #  'age_cat=Greater than 45', 'age_cat=Less than 25', 'c_charge_degree=F', 'c_charge_degree=M']
         ranges = self.get_non_categorical_range()
         self.ranges = ranges
         protected_attribute_indexs = [self.feature_names.index(attribute) for attribute in
@@ -159,9 +140,6 @@ class CompasDataset_1(StandardDataset):
         new_input = []
         for feature in non_categorical_features:
             index = self.feature_names.index(feature)
-            # print("-->index", index)
-            # print("-->dataset of selected feature")
-            # print(self.features[:, index])
             feature_range = [min(self.features[:, index]), max(self.features[:, index])]
             new_input.append(random.randint(feature_range[0], feature_range[1]))
 
@@ -176,12 +154,6 @@ class CompasDataset_1(StandardDataset):
     def distort_input(self, *args):
         priviledged_group = args[0]
         if_priviledge = args[1]  # True
-        # try:
-        #     priviledged_group = args[0]
-        #     if_priviledge = args[1]  # True
-        # except:
-        #     priviledged_group = self.privileged_protected_attributes
-        #     if_priviledge = True
 
         categorical_features = [feature for feature in self.categorical_features if
                                 feature not in self.protected_attribute_names]
@@ -196,18 +168,10 @@ class CompasDataset_1(StandardDataset):
         cond_vec = [not_priviledge]  # false
         protected_attribute_indexs = [self.feature_names.index(attribute) for attribute in
                                       self.protected_attribute_names]
-        # print("-->protected_attribute_indexs", protected_attribute_indexs)
-        # while new_input not satisfy priviledged_group or unpriviledged group, continue random.choice
-        # condition if necessary
-        # condition = [{'sex': 1, 'age': 1}, {'sex': 0}]
 
         while(cond_vec[0] == not_priviledge):
             new_input = random.choice(self.features)
-            # print("-->new_input", new_input)
             protected_attributes = np.array([[new_input[index] for index in protected_attribute_indexs]])
-            # print("-->protected_attributes", protected_attributes)
-            # print(type(protected_attributes))
-            # print("-->priviledged_group", priviledged_group)
             cond_vec = compute_boolean_conditioning_vector(protected_attributes, self.protected_attribute_names,
                                                            priviledged_group)
             # print("-->cond_vec", cond_vec)
@@ -231,13 +195,6 @@ class CompasDataset_1(StandardDataset):
         return self.clip(new_input)
 
     def generate_inputs(self, max_num, if_random, privileged_groups, if_priviledge):
-        # print("-->generate_inputs function:", self.feature_names)
-        # print(self.protected_attributes)
-        # print("-->check first 2 3 features")
-        # print(self.features[1])
-        # print(self.features[2])
-        # print(self.protected_attributes[1])
-        # print(self.protected_attributes[2])
         new_inputs = []
         while len(new_inputs) < max_num:
             if if_random == True:
@@ -245,8 +202,6 @@ class CompasDataset_1(StandardDataset):
             else:
                 # print("-->distort_input")
                 new_inputs.append(self.distort_input(privileged_groups, if_priviledge))
-            # print("-->type", type(new_inputs))
-            # new_inputs = list(set(new_inputs))
 
         return new_inputs
 
