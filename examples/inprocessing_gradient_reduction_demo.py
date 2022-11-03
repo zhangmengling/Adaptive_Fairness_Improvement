@@ -75,11 +75,11 @@ def GR_metric_test(dataset_name):
     if dataset_name == "Bank":
         name = "Bank"
         BATCH_SIZE = 128
-        EPOCHS = 50
+        EPOCHS = 1000
     elif dataset_name == "Adult income":
         name = "Adult"
         BATCH_SIZE = 128
-        EPOCHS = 1000  # 1000
+        EPOCHS = 1000
     elif dataset_name == "German credit":
         name = "Credit"
         BATCH_SIZE = 32
@@ -87,7 +87,7 @@ def GR_metric_test(dataset_name):
     else:
         name = "Compas"
         BATCH_SIZE = 128
-        EPOCHS = 100
+        EPOCHS = 1000
 
     dataset_orig = eval(function)()
     # dataset_orig_train, dataset_orig_test = dataset_orig.split([0.7], shuffle=True, seed=seed)
@@ -399,30 +399,30 @@ def GR_metric_test(dataset_name):
                 names['uni_' + str(sens_attr) + '_metrics'][key].append(value[0])
         all_uni_trans_metrics.append(names['uni_' + str(sens_attr) + '_metrics'])
 
-    print("-->metric results")
-    print(all_uni_orig_metrics[0])
-    print(all_uni_trans_metrics[0])
-    print(all_uni_orig_metrics[1])
-    print(all_uni_trans_metrics[1])
+    # print("-->metric results")
+    # print(all_uni_orig_metrics[0])
+    # print(all_uni_trans_metrics[0])
+    # print(all_uni_orig_metrics[1])
+    # print(all_uni_trans_metrics[1])
     multi_orig_metrics = [multi_orig_metrics, multi_group_metrics, multi_causal_metrics]
     all_multi_orig_metrics = defaultdict(list)
     for to_merge in multi_orig_metrics:
         for key, value in to_merge.items():
             # print("-->value", value)
             all_multi_orig_metrics[key].append(value[0])
-    print("-->all_multi_orig_metrics", all_multi_orig_metrics)
+    # print("-->all_multi_orig_metrics", all_multi_orig_metrics)
     multi_trans_metrics = [multi_orig_trans_metrics, multi_group_trans_metrics, multi_causal_trans_metrics]
     all_multi_trans_metrics = defaultdict(list)
     for to_merge in multi_trans_metrics:
         for key, value in to_merge.items():
             # print("-->value", value)
             all_multi_trans_metrics[key].append(value[0])
-    print("-->all_multi_trans_metrics", all_multi_trans_metrics)
+    # print("-->all_multi_trans_metrics", all_multi_trans_metrics)
 
-    print("--all results:")
-    print([dict(all_uni_orig_metrics[0]), dict(all_uni_trans_metrics[0]), dict(all_uni_orig_metrics[1]),
-           dict(all_uni_trans_metrics[1]),
-           dict(all_multi_orig_metrics), dict(all_multi_trans_metrics)])
+    # print("--all results:")
+    # print([dict(all_uni_orig_metrics[0]), dict(all_uni_trans_metrics[0]), dict(all_uni_orig_metrics[1]),
+    #        dict(all_uni_trans_metrics[1]),
+    #        dict(all_multi_orig_metrics), dict(all_multi_trans_metrics)])
 
     from plot_result import Plot
     sens_attrs = dataset_orig_train.protected_attribute_names
@@ -446,250 +446,4 @@ def GR_metric_test(dataset_name):
 
 
 dataset_name = "Adult income"
-# metric_test(dataset_name)
 GR_metric_test(dataset_name)
-
-
-
-
-
-
-
-
-
-
-
-def metric_test(dataset_name):
-    if dataset_name == "Adult income":
-        # function = "load_preproc_data_adult"
-        function = "AdultDataset"
-        protected_attributes = ['sex', 'race']
-        all_privileged_groups = {'sex': [{'sex': 1}], 'race': [{'race': 1}]}
-        all_unprivileged_groups = {'sex': [{'sex': 0}], 'race': [{'race': 0}]}
-    elif dataset_name == "German credit":
-        # function = "load_preproc_data_german"
-        function = "GermanDataset"
-        protected_attributes = ['sex', 'age']
-        all_privileged_groups = {'sex': [{'sex': 1}], 'age': [{'age': 1}]}
-        all_unprivileged_groups = {'sex': [{'sex': 0}], 'age': [{'age': 0}]}
-    else:
-        # function = "load_preproc_data_compas"
-        function = "CompasDataset_1"
-        protected_attributes = ['sex', 'race']
-        all_privileged_groups = {'sex': [{'sex': 1}], 'race': [{'race': 1}]}
-        all_unprivileged_groups = {'sex': [{'sex': 0}], 'race': [{'race': 0}]}
-
-    # processing_name = str(os.path.basename(__file__)).split("_demo")[0]
-    processing_name = "GR"
-
-    dataset_orig = eval(function)()
-    # dataset_orig_train, dataset_orig_test = dataset_orig.split([0.7], shuffle=True, seed=seed)
-    dataset_orig_train, dataset_orig_test = dataset_orig.split([0.7], shuffle=True)
-
-    for protected_attribute in protected_attributes:
-        print("-->sens_attr", protected_attribute)
-        privileged_groups = all_privileged_groups[protected_attribute]
-        print("-->privileged_groups", privileged_groups)
-        unprivileged_groups = all_unprivileged_groups[protected_attribute]
-        print("-->privileged_groups", unprivileged_groups)
-
-        # print out some labels, names, etc.
-        # display(Markdown("#### Training Dataset shape"))
-        print(dataset_orig_train.features.shape)
-        # display(Markdown("#### Favorable and unfavorable labels"))
-        print(dataset_orig_train.favorable_label, dataset_orig_train.unfavorable_label)
-        # display(Markdown("#### Protected attribute names"))
-        print(dataset_orig_train.protected_attribute_names)
-        # display(Markdown("#### Privileged and unprivileged protected attribute values"))
-        print(dataset_orig_train.privileged_protected_attributes,
-              dataset_orig_train.unprivileged_protected_attributes)
-        # display(Markdown("#### Dataset feature names"))
-        print(dataset_orig_train.feature_names)
-
-        # %% md
-
-        #### Metric for original training data
-
-        # %%
-
-        # Metric for the original dataset
-        metric_orig_train = BinaryLabelDatasetMetric(dataset_orig_train,
-                                                     unprivileged_groups=unprivileged_groups,
-                                                     privileged_groups=privileged_groups)
-        # display(Markdown("#### Original training dataset"))
-        print("--> Original training dataset ")
-        print(
-            "Train set: Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_orig_train.mean_difference())
-        metric_orig_test = BinaryLabelDatasetMetric(dataset_orig_test,
-                                                    unprivileged_groups=unprivileged_groups,
-                                                    privileged_groups=privileged_groups)
-        print(
-            "Test set: Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_orig_test.mean_difference())
-
-        # %%
-
-        # min_max_scaler = MaxAbsScaler()
-        # dataset_orig_train.features = min_max_scaler.fit_transform(dataset_orig_train.features)
-        # dataset_orig_test.features = min_max_scaler.transform(dataset_orig_test.features)
-        metric_scaled_train = BinaryLabelDatasetMetric(dataset_orig_train,
-                                                       unprivileged_groups=unprivileged_groups,
-                                                       privileged_groups=privileged_groups)
-        # display(Markdown("#### Scaled dataset - Verify that the scaling does not affect the group label statistics"))
-        print("-->Verify that the scaling does not affect the group label statistics")
-        print(
-            "Train set: Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_scaled_train.mean_difference())
-        metric_scaled_test = BinaryLabelDatasetMetric(dataset_orig_test,
-                                                      unprivileged_groups=unprivileged_groups,
-                                                      privileged_groups=privileged_groups)
-        print(
-            "Test set: Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_scaled_test.mean_difference())
-
-        # %% md
-
-        ### Standard Logistic Regression
-        ### Standard MLP Classifier
-
-        X_train = dataset_orig_train.features
-        y_train = dataset_orig_train.labels.ravel()
-
-        # model = make_pipeline(StandardScaler(), LogisticRegression(solver='liblinear', random_state=1))
-        # fit_params = {'logisticregression__sample_weight': dataset.instance_weights}
-        # lr_orig_panel19 = model.fit(dataset.features, dataset.labels.ravel(), **fit_params)
-        #
-        lmod = MLPClassifier(solver='adam', activation='identity', max_iter=500, alpha=1e-5,
-                             hidden_layer_sizes=(64, 32, 16, 8, 4),
-                             random_state=1, verbose=True)  # identity， relu
-        lmod.fit(X_train, y_train)
-        #
-        # dimension = len(X_train[0])
-        # lmod = initial_dnn(dimension)
-        # lmod.fit(x=X_train,y=y_train, batch_size=128, epochs=100)
-
-        # lmod = LogisticRegression(solver='lbfgs')
-        # lmod.fit(X_train, y_train, sample_weight=dataset_orig_train.instance_weights)
-
-        X_test = dataset_orig_test.features
-        y_test = dataset_orig_test.labels.ravel()
-
-        y_pred = lmod.predict(X_test)
-
-        # display(Markdown("#### Accuracy"))
-        print("-->accuracy:")
-        lr_acc = accuracy_score(y_test, y_pred)
-        print(lr_acc)
-
-        # %%
-
-        dataset_orig_test_pred = dataset_orig_test.copy(deepcopy=True)
-        dataset_orig_test_pred.labels = y_pred
-
-        # thresh_arr = np.linspace(0.01, 0.5, 50)
-        thresh_arr = np.array([0.5])
-        orig_metrics = metric_test1(dataset=dataset_orig_test,
-                                    model=lmod,
-                                    thresh_arr=thresh_arr,
-                                    privileged_groups=privileged_groups,
-                                    unprivileged_groups=unprivileged_groups)
-        lr_orig_best_ind = np.argmax(orig_metrics['bal_acc'])
-
-        disp_imp = np.array(orig_metrics['disp_imp'])
-        disp_imp_err = 1 - np.minimum(disp_imp, 1 / disp_imp)
-
-        print("-->Validating MLP model on original data")
-        describe_metrics(orig_metrics, thresh_arr)
-
-        # positive class index
-        pos_ind = np.where(lmod.classes_ == dataset_orig_train.favorable_label)[0][0]
-        # dataset_orig_test_pred.scores = lmod.predict_proba(X_test)[:, pos_ind].reshape(-1, 1)
-        dataset_orig_test_pred.scores = lmod.predict(X_test)[:, pos_ind].reshape(-1, 1)
-
-        metric_test = ClassificationMetric(dataset_orig_test,
-                                           dataset_orig_test_pred,
-                                           unprivileged_groups=unprivileged_groups,
-                                           privileged_groups=privileged_groups)
-        print("-->average_odds_difference:")
-        lr_aod = metric_test.average_odds_difference()
-        print(lr_aod)
-
-        # %% md
-
-        ### Exponentiated Gradient Reduction
-
-        # %% md
-
-        # Choose a base model for the randomized classifer
-
-        # %%
-
-        estimator = LogisticRegression(solver='lbfgs')
-
-        # estimator = MLPClassifier(solver='adam', activation='identity', max_iter=500, alpha=1e-5, hidden_layer_sizes=(64, 32, 16, 8, 4),
-        #                     random_state=1, verbose=True) #identity， relu
-
-        # dimension = len(X_train[0])
-        # estimator = initial_dnn(dimension)
-
-        # %% md
-
-        # Train the randomized classifier and observe test accuracy. Other options for `constraints` include "DemographicParity,"
-        # "TruePositiveRateDifference", and "ErrorRateRatio."
-
-        # %%
-
-        np.random.seed(0)  # need for reproducibility
-        exp_grad_red = ExponentiatedGradientReduction(estimator=estimator,
-                                                      constraints="EqualizedOdds",
-                                                      drop_prot_attr=False)
-        exp_grad_red.fit(dataset_orig_train)
-        exp_grad_red_pred = exp_grad_red.predict(dataset_orig_test)
-
-        metric_test = ClassificationMetric(dataset_orig_test,
-                                           exp_grad_red_pred,
-                                           unprivileged_groups=unprivileged_groups,
-                                           privileged_groups=privileged_groups)
-
-        display(Markdown("#### Accuracy"))
-        egr_acc = metric_test.accuracy()
-        print(egr_acc)
-
-        # Check if accuracy is comparable
-        assert abs(lr_acc - egr_acc) < 0.03
-
-        display(Markdown("#### Average odds difference"))
-        egr_aod = metric_test.average_odds_difference()
-        print(egr_aod)
-
-        # Check if average odds difference has improved
-        # assert abs(egr_aod)<abs(lr_aod)
-
-        # accuracy of model after gradient reduction
-        X_test = dataset_orig_test.features
-        y_test = dataset_orig_test.labels.ravel()
-        y_pred = exp_grad_red.predict(dataset_orig_test).labels
-        lr_acc = accuracy_score(y_test, y_pred)
-        print("-->accuracy after gradient reduction:", lr_acc)
-
-        # thresh_arr = np.linspace(0.01, 0.5, 50)
-        thresh_arr = np.array([0.5])
-        gr_metrics = metric_test_without_thresh(dataset=dataset_orig_test,
-                                                dataset_pred=exp_grad_red_pred,
-                                                privileged_groups=privileged_groups,
-                                                unprivileged_groups=unprivileged_groups)
-
-        # disp_imp = np.array(val_metrics['disp_imp'])
-        # disp_imp_err = 1 - np.minimum(disp_imp, 1/disp_imp)
-        # print("-->disp_imp_err", disp_imp_err)
-
-        print("-->Validating ExponentiatedGradientReduction model on original data")
-        describe_metrics(gr_metrics, thresh_arr)
-
-        Plot_class = Plot(dataset_name=dataset_name, sens_attr=protected_attribute, processing_name=processing_name)
-        # Plot.plot_acc_metric(lr_orig_metrics, lr_transf_metrics, "stat_par_diff")
-        multi_metric_names = ["stat_par_diff", "avg_odds_diff", "eq_opp_diff"]
-        Plot_class.plot_acc_multi_metric(orig_metrics, gr_metrics, multi_metric_names)
-
-
-
-
-
-

@@ -101,8 +101,6 @@ def AD_metric_test(dataset_name):
     y_pred = np.argmax(plain_model.predict(dataset_orig_test.features), axis=1)
     print("-->prediction accuracy on test data", accuracy_score(list(y_test), list(y_pred)))
 
-    print("-->dataset_orig_test.features", dataset_orig_test.features)
-
     thresh_arr = np.array([0.5])
     print("----------" + "test on test data" + "----------")
     multi_orig_metrics = metric_test_new_inputs(dataset=dataset_orig_test,
@@ -318,29 +316,29 @@ def AD_metric_test(dataset_name):
                 names['uni_' + str(sens_attr) + '_metrics'][key].append(value[0])
         all_uni_trans_metrics.append(names['uni_' + str(sens_attr) + '_metrics'])
 
-    print("-->uni_race_orig_metrics", all_uni_orig_metrics[0])
-    print("-->uni_race_trans_metrics", all_uni_trans_metrics[0])
-    print("-->uni_sex_orig_metrics", all_uni_orig_metrics[1])
-    print("-->uni_sex_trans_metrics", all_uni_trans_metrics[1])
+    # print("-->uni_race_orig_metrics", all_uni_orig_metrics[0])
+    # print("-->uni_race_trans_metrics", all_uni_trans_metrics[0])
+    # print("-->uni_sex_orig_metrics", all_uni_orig_metrics[1])
+    # print("-->uni_sex_trans_metrics", all_uni_trans_metrics[1])
     multi_orig_metrics = [multi_orig_metrics, multi_group_metrics, multi_causal_metrics]
     all_multi_orig_metrics = defaultdict(list)
     for to_merge in multi_orig_metrics:
         for key, value in to_merge.items():
             # print("-->value", value)
             all_multi_orig_metrics[key].append(value[0])
-    print("-->all_multi_orig_metrics", all_multi_orig_metrics)
+    # print("-->all_multi_orig_metrics", all_multi_orig_metrics)
     multi_trans_metrics = [multi_orig_trans_metrics, multi_group_trans_metrics, multi_causal_trans_metrics]
     all_multi_trans_metrics = defaultdict(list)
     for to_merge in multi_trans_metrics:
         for key, value in to_merge.items():
             # print("-->value", value)
             all_multi_trans_metrics[key].append(value[0])
-    print("-->all_multi_trans_metrics", all_multi_trans_metrics)
+    # print("-->all_multi_trans_metrics", all_multi_trans_metrics)
 
-    print("--all results:")
-    print([dict(all_uni_orig_metrics[0]), dict(all_uni_trans_metrics[0]), dict(all_uni_orig_metrics[1]),
-           dict(all_uni_trans_metrics[1]),
-           dict(all_multi_orig_metrics), dict(all_multi_trans_metrics)])
+    # print("--all results:")
+    # print([dict(all_uni_orig_metrics[0]), dict(all_uni_trans_metrics[0]), dict(all_uni_orig_metrics[1]),
+    #        dict(all_uni_trans_metrics[1]),
+    #        dict(all_multi_orig_metrics), dict(all_multi_trans_metrics)])
 
     from plot_result import Plot
     sens_attrs = dataset_orig_train.protected_attribute_names
@@ -358,5 +356,5 @@ def AD_metric_test(dataset_name):
            dataset_name, sens_attrs, processing_name
 
 
-dataset_name = "German credit"
+dataset_name = "Adult income"
 AD_metric_test(dataset_name)

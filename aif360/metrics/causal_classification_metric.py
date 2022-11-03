@@ -263,7 +263,11 @@ class CausalClassficationMetric(ClassificationMetric):
                                 distorted_input_dataset.protected_attributes[0] = [distorted_input[index] for index in
                                                                                    sensitive_indexs]
                                 # y_val_pred_prob = model.predict(distorted_input_dataset).scores[0]
-                                y_val_pred_prob = model.predict(distorted_input_dataset.features)
+                                # y_val_pred_prob = model.predict(distorted_input_dataset.features)
+                                try:
+                                    y_val_pred_prob = model.predict(distorted_input_dataset.features)
+                                except:
+                                    y_val_pred_prob = model.predict(distorted_input_dataset).scores
 
                 if thresh_arr == None:
                     distorted_input.astype(int)

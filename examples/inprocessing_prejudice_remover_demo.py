@@ -575,6 +575,6 @@ def metric_test(dataset_name):
         multi_metric_names = ["stat_par_diff", "avg_odds_diff", "eq_opp_diff"]
         Plot_class.plot_acc_multi_metric(orig_metrics, pd_metrics, multi_metric_names)
 
-dataset_name = "German credit"
+dataset_name = "Adult income"
 # metric_test(dataset_name)
 PR_metric_test(dataset_name)
