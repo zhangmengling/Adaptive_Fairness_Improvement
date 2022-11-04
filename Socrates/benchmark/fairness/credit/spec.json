@@ -1,0 +1,61 @@
+{
+  "model": {
+    "shape": "(1,20)",
+    "bounds": "[(0,3),(1,80),(0,4),(0,10),(1,200),(0,4),(0,4),(1,4),(0,1),(0,2),(1,4),(0,3),(1,8),(0,2),(0,2),(1,4),(0,3),(1,2),(0,1),(0,1)]",
+    "layers": [
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w1.txt",
+        "bias": "benchmark/fairness/credit/bias/b1.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w2.txt",
+        "bias": "benchmark/fairness/credit/bias/b2.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w3.txt",
+        "bias": "benchmark/fairness/credit/bias/b3.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w4.txt",
+        "bias": "benchmark/fairness/credit/bias/b4.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w5.txt",
+        "bias": "benchmark/fairness/credit/bias/b5.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/credit/weights/w6.txt",
+        "bias": "benchmark/fairness/credit/bias/b6.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[8,12]"
+  }
+}

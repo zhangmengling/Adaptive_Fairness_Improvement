@@ -1,0 +1,86 @@
+{
+  "model": {
+    "shape": "(1,20)",
+    "bounds": "[(0,3),(1,80),(0,4),(0,10),(1,200),(0,4),(0,4),(1,4),(0,1),(0,2),(1,4),(0,3),(0,1),(0,2),(0,2),(1,4),(0,3),(1,2),(0,1),(0,1)]",
+    "distribution": "[(1.0383333333333333, 1.1576688741700807),(20.22, 12.014086176928592),(2.4, 1.0878112581387147),(2.638333333333333, 2.7094028657416174),(31.481666666666666, 29.620989133083018),(0.815, 1.4168421459946294),(2.285, 1.2249251677823696),(2.986666666666667, 1.1164626679333658),(0.3333333333333333, 0.47140452079103173),(0.15833333333333333, 0.48641260491708294),(2.8783333333333334, 1.1151370120104325),(1.3516666666666666, 1.0620721360727916),(3.0833333333333335, 1.1971029845237025),(1.6533333333333333, 0.7232949298561103),(0.91, 0.5644171034498039),(1.385, 0.591699529603779),(1.8883333333333334, 0.6727039137358691),(1.16, 0.36660605559646714),(0.36833333333333335, 0.48235245297281204),(0.05333333333333334, 0.22469732728470287)]",
+    "layers": [
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w1.txt",
+        "bias": "benchmark/causal/credit/bias/b1.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w2.txt",
+        "bias": "benchmark/causal/credit/bias/b2.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w3.txt",
+        "bias": "benchmark/causal/credit/bias/b3.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w4.txt",
+        "bias": "benchmark/causal/credit/bias/b4.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w5.txt",
+        "bias": "benchmark/causal/credit/bias/b5.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/credit/weights/w6.txt",
+        "bias": "benchmark/causal/credit/bias/b6.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[12]",
+    "sens_cluster": "2",
+    "sens_threshold": "6",
+    "solve_option": "solve_fairness",
+    "object": "feature,neuron",
+    "timeout": 60,
+    "datapath": "benchmark/causal/credit/data_test",
+    "datalen_tot": 179,
+    "datalen": 179,
+    "metric_datapath": "benchmark/causal/credit/data_test",
+    "metric_datalen": 179,
+    "resultpath": "benchmark/causal/credit/result",
+    "acc_datapath": "benchmark/causal/credit/data_all",
+    "acc_datalen_tot": 600,
+    "acc_datalen": 600,
+    "class_n": 0,
+    "repair_num": 13,
+    "do_layer": "[0,2,4,6,8]",
+    "do_neuron": "[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],[0,1,2,3,4,5,6,7],[0,1,2,3]]",
+    "features": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19],
+    "stepsize": 16,
+    "acc_alpha": 0.2,
+    "criteria": 0.02,
+    "error": 0.001,
+    "confidence": 0.01
+  }
+}

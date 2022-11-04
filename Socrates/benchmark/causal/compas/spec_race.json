@@ -1,0 +1,84 @@
+{
+  "model": {
+    "shape": "(1,12)",
+    "bounds": "[(0.0, 1.0), (18.0, 96.0), (0.0, 2.0), (0, 1), (0.0, 20.0), (1.0, 10.0), (0.0, 13.0), (0.0, 9.0), (0.0, 38.0), (0.0, 1.0), (0.0, 1.0), (1.0, 10.0)]",
+    "distribution": "[(0.1903758911211925, 0.3926294540349175), (34.53451069345431, 11.730938428749193), (0.6459818535320804, 0.8156497112494345), (0.34073233959818533, 0.473993896453728), (0.059300064808814, 0.46359899473324495), (4.41850291639663, 2.8394632889108955), (0.09121840570317563, 0.4978716714148265), (0.11066104990278677, 0.4707311660024103), (3.2464355152300715, 4.743769576446037), (0.6432274789371355, 0.4790856677811794), (0.11211924821775761, 0.31553867285121767), (3.6417692806221647, 2.4887675676417675)]",
+    "layers": [
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w1.txt",
+        "bias": "benchmark/causal/compas/bias/b1.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w2.txt",
+        "bias": "benchmark/causal/compas/bias/b2.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w3.txt",
+        "bias": "benchmark/causal/compas/bias/b3.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w4.txt",
+        "bias": "benchmark/causal/compas/bias/b4.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w5.txt",
+        "bias": "benchmark/causal/compas/bias/b5.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/compas/weights/w6.txt",
+        "bias": "benchmark/causal/compas/bias/b6.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[3]",
+    "sens_cluster": "2",
+    "sens_threshold": "0",
+    "solve_option": "solve_fairness",
+    "object": "feature, neuron",
+    "timeout": 15,
+    "datapath": "benchmark/causal/compas/data_test",
+    "datalen_tot": 1851,
+    "datalen": 180,
+    "resultpath": "benchmark/causal/compas/result",
+    "acc_datapath": "benchmark/causal/compas/data_all",
+    "acc_datalen_tot": 1000,
+    "acc_datalen": 1000,
+    "class_n": 0,
+    "repair_num": 13,
+    "do_layer": "[0,2,4,6,8]",
+    "do_neuron": "[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],[0,1,2,3,4,5,6,7],[0,1,2,3]]",
+    "features": [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11],
+    "stepsize": 16,
+    "acc_alpha": 0.8,
+    "criteria": 0.02,
+    "error": 0.001,
+    "confidence": 0.01
+  }
+}

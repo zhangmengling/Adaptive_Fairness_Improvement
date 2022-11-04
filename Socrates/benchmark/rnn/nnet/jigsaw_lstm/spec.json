@@ -1,0 +1,34 @@
+{
+  "model": {
+    "shape": "(1,1)",
+    "bounds" : "[(-5.4593,5.0756)]",
+    "layers": [
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/jigsaw_lstm/weights/w1.txt",
+        "bias": "benchmark/rnn/nnet/jigsaw_lstm/bias/b1.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/jigsaw_lstm/weights/w2.txt",
+        "bias": "benchmark/rnn/nnet/jigsaw_lstm/bias/b2.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/jigsaw_lstm/weights/w3.txt",
+        "bias": "benchmark/rnn/nnet/jigsaw_lstm/bias/b3.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/jigsaw_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/rnn/nnet/jigsaw_lstm/weights/w4.txt",
+        "bias": "benchmark/rnn/nnet/jigsaw_lstm/bias/b4.txt"
+      }
+    ]
+  }
+}

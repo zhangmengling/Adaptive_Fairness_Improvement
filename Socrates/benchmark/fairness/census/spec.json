@@ -1,0 +1,61 @@
+{
+  "model": {
+    "shape": "(1,13)",
+    "bounds": "[(1,9),(0,7),(0,39),(0,15),(0,6),(0,13),(0,5),(0,4),(0,1),(0,99),(0,39),(0,99),(0,39)]",
+    "layers": [
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w1.txt",
+        "bias": "benchmark/fairness/census/bias/b1.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w2.txt",
+        "bias": "benchmark/fairness/census/bias/b2.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w3.txt",
+        "bias": "benchmark/fairness/census/bias/b3.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w4.txt",
+        "bias": "benchmark/fairness/census/bias/b4.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w5.txt",
+        "bias": "benchmark/fairness/census/bias/b5.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/fairness/census/weights/w6.txt",
+        "bias": "benchmark/fairness/census/bias/b6.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[0,7,8]"
+  }
+}

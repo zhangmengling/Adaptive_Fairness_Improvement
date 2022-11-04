@@ -1,0 +1,54 @@
+    "fairness": "[7]",  # sensitive feature
+    "solve_option": "solve_fairness",   # solver
+    "timeout": 5,
+    "datapath": "../benchmark/causal/census/data_di_race",  # discriminitary data
+    "resultpath": "../benchmark/causal/census/result",  # result path
+    "acc_datapath": "../benchmark/causal/census/data",  # test data
+    "acc_datalen": 100,
+    "class_n": 0,   # focus on which class
+    "repair_num": 10,   # number of neurons to repair
+    "do_layer": "[1,3,5,7,9]",
+    "do_neuron":
+    "datalen": 500,
+    "stepsize": 16,
+    "criteria": 0.02,   # fairness criteria for dtmc
+    "error": 0.001, # error tolerance for dtmc
+    "confidence": 0.01  # confidence level for dt,c
+
+
+
+
+race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black. difference between white and black is the largest
+sex: Female, Male.
+
+
+gender:
+weight: 0
+[0.49756888168557534, 0.5024474051022724]
+weight: 1
+[0.8443648208469056, 0.15566560239786278]
+[0.8720562616943028, 0.128]
+
+race:
+weight: 0
+[0.25048755753178875, 0.2503978159126365, 0.24979134002605324, 0.12457292625469976, 0.12477671084346748]
+weight: 1
+[0.8500155714730614, 0.14999377102279807]
+[0.8742406778605027, 0.12582203521894966]
+[0.8685632201854917, 0.13146141112533966]
+[0.8800876643706951, 0.11999498715458362]
+[0.8249562390597649, 0.17519709673382555]
+
+age:
+weight: 0
+[0.12484957198973684, 0.1250373700562727, 0.062478713339640495, 0.12557998713242252, 0.12555016897709254, 0.12415891493403773, 0.12506433740046627, 0.062473508931274596, 0.12484105839968515]
+weight: 1
+[0.8666565625947257, 0.1333697068897578]
+[0.8556036439575073, 0.144405097006568]
+[0.8791035735917626, 0.12091107341894838]
+[0.8723404255319149, 0.1276903599204196]
+[0.839155990957046, 0.16085370632743495]
+[0.8633564984150207, 0.13671017321297876]
+[0.8501482781577195, 0.14987439847462244]
+[0.8293554640174461, 0.17082044751682737]
+[0.8758677134802509, 0.12414733969986358]

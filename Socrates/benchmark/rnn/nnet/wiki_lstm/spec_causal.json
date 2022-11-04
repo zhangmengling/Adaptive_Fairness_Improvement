@@ -1,0 +1,61 @@
+{
+  "model": {
+    "shape": "(1,1)",
+    "bounds" : "[(-4.7231,5.0756)]",
+    "layers": [
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/wiki_lstm/weights/w1.txt",
+        "bias": "benchmark/rnn/nnet/wiki_lstm/bias/b1.txt",
+        "h0": "benchmark/rnn/nnet/wiki_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/wiki_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/wiki_lstm/weights/w2.txt",
+        "bias": "benchmark/rnn/nnet/wiki_lstm/bias/b2.txt",
+        "h0": "benchmark/rnn/nnet/wiki_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/wiki_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "lstm",
+        "weights": "benchmark/rnn/nnet/wiki_lstm/weights/w3.txt",
+        "bias": "benchmark/rnn/nnet/wiki_lstm/bias/b3.txt",
+        "h0": "benchmark/rnn/nnet/wiki_lstm/h_c/h0.txt",
+        "c0": "benchmark/rnn/nnet/wiki_lstm/h_c/c0.txt"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/rnn/nnet/wiki_lstm/weights/w4.txt",
+        "bias": "benchmark/rnn/nnet/wiki_lstm/bias/b4.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[0]",
+    "sens_cluster": "2",
+    "sens_threshold": "6",
+    "solve_option": "solve_fairness",
+    "object": "neuron",
+    "timeout": 180,
+    "datapath": "benchmark/rnn/data/wiki",
+    "datalen_tot": 100,
+    "datalen": 100,
+    "metric_datapath": "benchmark/rnn/data/wiki",
+    "metric_datalen": 100,
+    "resultpath": "benchmark/rnn/wiki_lstm/result",
+    "acc_datapath": "benchmark/rnn/data/wiki",
+    "acc_datalen_tot": 100,
+    "acc_datalen": 100,
+    "class_n": 0,
+    "repair_num": 13,
+    "do_layer": "[0,1,2,3]",
+    "do_neuron": "[[0,1,2,3,4,5,6,7,8,9],[0,1,2,3,4,5,6,7,8,9],[0,1,2,3,4,5,6,7,8,9],[0,1]]",
+    "features": [1],
+    "stepsize": 16,
+    "acc_alpha": 0.7,
+    "criteria": 0.02,
+    "error": 0.001,
+    "confidence": 0.01
+  }
+}

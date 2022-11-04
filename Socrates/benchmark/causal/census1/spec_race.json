@@ -1,0 +1,84 @@
+{
+  "model": {
+    "shape": "(1,13)",
+    "bounds": "[(1,9),(0,7),(0,39),(0,15),(0,6),(0,13),(0,5),(0,4),(0,1),(0,99),(0,39),(0,99),(0,39)]",
+    "distribution": "[(3.4105525014588,1.39982596058118),(6.33420349497865,22.9410185393026),(8.98697828690765,5.28896119555253),(3.40308958570068,3.46169123102895),(1.07748533521697,1.18554335114586),(10.1273609532876,22.2028804507662),(2.38085439636374,1.23746819668131),(0.459752464604895,1.21193270632914),(0.669205491231841,0.470506429875949),(1.04284266453732,7.2989288418521),(0.85012745308805,3.92919763321731),(40.4374558520929,12.3474286817318),(3.27087620159086,14.2002622132739)]",
+    "layers": [
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w1.txt",
+        "bias": "benchmark/causal/census/bias/b1.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w2.txt",
+        "bias": "benchmark/causal/census/bias/b2.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w3.txt",
+        "bias": "benchmark/causal/census/bias/b3.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w4.txt",
+        "bias": "benchmark/causal/census/bias/b4.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w5.txt",
+        "bias": "benchmark/causal/census/bias/b5.txt"
+      },
+      {
+        "type": "function",
+        "func": "relu"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/causal/census/weights/w6.txt",
+        "bias": "benchmark/causal/census/bias/b6.txt"
+      }
+    ]
+  },
+  "assert": {
+    "fairness": "[7]",
+    "sens_cluster": "2",
+    "sens_threshold": "3",
+    "solve_option": "solve_fairness",
+    "object": "feature",
+    "timeout": 15,
+    "datapath": "benchmark/causal/census/data_di_race_gaussian",
+    "datalen_tot": 3493,
+    "datalen": 100,
+    "resultpath": "benchmark/causal/census/result",
+    "acc_datapath": "benchmark/causal/census/data_all",
+    "acc_datalen_tot": 1000,
+    "acc_datalen": 100,
+    "class_n": 0,
+    "repair_num": 13,
+    "do_layer": "[0,2,4,6,8]",
+    "do_neuron": "[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],[0,1,2,3,4,5,6,7],[0,1,2,3]]",
+    "features": [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12],
+    "stepsize": 16,
+    "acc_alpha": 0.4,
+    "criteria": 0.02,
+    "error": 0.001,
+    "confidence": 0.01
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "model": {
+    "shape": "(1,1)",
+    "bounds" : "[(-5.4593,5.0756)]",
+    "layers": [
+      {
+        "type": "gru",
+        "gate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/gw1.txt",
+        "candidate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/cw1.txt",
+        "gate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/gb1.txt",
+        "candidate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/cb1.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_gru/h_c/h0.txt"
+      },
+      {
+        "type": "gru",
+        "gate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/gw2.txt",
+        "candidate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/cw2.txt",
+        "gate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/gb2.txt",
+        "candidate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/cb2.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_gru/h_c/h0.txt"
+      },
+      {
+        "type": "gru",
+        "gate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/gw3.txt",
+        "candidate_weights": "benchmark/rnn/nnet/jigsaw_gru/weights/cw3.txt",
+        "gate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/gb3.txt",
+        "candidate_bias": "benchmark/rnn/nnet/jigsaw_gru/bias/cb3.txt",
+        "h0": "benchmark/rnn/nnet/jigsaw_gru/h_c/h0.txt"
+      },
+      {
+        "type": "linear",
+        "weights": "benchmark/rnn/nnet/jigsaw_gru/weights/w4.txt",
+        "bias": "benchmark/rnn/nnet/jigsaw_gru/bias/b4.txt"
+      }
+    ]
+  }
+}
