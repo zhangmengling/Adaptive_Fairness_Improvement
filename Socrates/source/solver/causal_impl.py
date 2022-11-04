@@ -663,24 +663,6 @@ class CausalImpl():
                 plt.savefig(self.resultpath + '/' + self.object + 'all_causal_effect' + ".png")
                 print("-->save path", self.resultpath + '/' + 'all_causal_effect' + ".png")
 
-
-                # # plot average ie
-                # plt.figure()
-                # plt.ylabel('Average IE')
-                #
-                # color_tab = ['black', 'b', 'g', 'r', 'c', 'm']
-                #
-                # plt.axhline(self.get_basic_dy(self.sens_idx), c="black", ls="--")
-                # idx = 0
-                # print("-->ie_ave", ie_ave)
-                # for i in range(0, len(ie_ave)):
-                #     for j in range(0, len(ie_ave[i])):
-                #         plt.scatter(idx, ie_ave[i][j], color=color_tab[i])
-                #         idx = idx + 1
-                # plt.savefig(self.resultpath + '/' + 'all_average' + ".png")
-                # print("-->save path", self.resultpath + '/' + 'all_average' + ".png")
-
-
         else:
             ie_ave = []
             ie_variance = []
@@ -764,52 +746,18 @@ class CausalImpl():
         fault_loc_time = time.time() - overall_starttime
         print("-->fault_loc_time", fault_loc_time)
 
-        # randomly select 10 neurons
-        '''#random neuron
-        self.r_neuron = []
-        self.r_layer = []
-
-        for i in range (0, self.repair_num):
-            # layer
-            ran_layer_idx = int(np.random.rand() * (len(self.do_neuron)))
-
-            ran_layer = self.do_layer[ran_layer_idx]
-            ran_neuron = int(np.random.rand() * len(self.do_neuron[ran_layer_idx]))
-            self.r_neuron.append(ran_neuron)
-            self.r_layer.append(ran_layer)
-
-        '''
-
-        ''' #all neuron
-        self.r_neuron = []
-        self.r_layer = []
-        i = 0
-        for _layer in self.do_layer:
-            for _neuron in self.do_neuron[i]:
-                self.r_layer.append(_layer)
-                self.r_neuron.append(_neuron)
-            i = i + 1
-
-        '''
-
-        '''#fix neuron
-        self.r_layer = [4, 4, 2, 0, 2, 2, 0, 0, 2, 8, 8, 8, 8]
-        self.r_neuron = [4, 1, 28, 28, 17, 15, 30, 8, 0, 3, 2, 1, 0]
-        '''
-
+        """
+        Fault Repair
+        """
+        """
         print('Repair:')
 
-        print('\nRepair layer: {}'.format(self.r_layer))
+        print('Repair layer: {}'.format(self.r_layer))
         print('Repair neuron: {}'.format(self.r_neuron))
 
         # start repair
         best_pos = self.repair()
 
-        # self.acc_datalen = self.acc_datalen_tot
-        # self.datapath = self.metric_datapath
-        # self.datalen = self.metric_datalen
-        # self.datalen_tot = self.metric_datalen
-        # verify prob diff and model accuracy after repair , weight, layer, neuron, sens_idx, sens_value, class_n
         r_id_rate, r_acc, group_metric = self.test_repaired_net_fix(best_pos, self.r_layer, self.r_neuron, self.sens_idx, self.sens_value, self.class_n)
         # print('Percentage of discriminatory instance after repair: 1.0')
         ori_id_rate = self.net_fairness_test_orig(self.sens_idx)
@@ -825,14 +773,10 @@ class CausalImpl():
 
         print('Network Accuracy before repair: {}'.format(ori_accuracy))
 
-        #self.timeout = 1800
-        # analyze fairness after repair
-        #dtmc.analyze_fairness_causal(model, self.sensitive, self.sens_cluster, self.timeout, self.criteria, self.error,
-        #                             self.delta, self.acc_datapath, self.resultpath, self.r_layer, self.r_neuron, best_pos, self.sens_threshold)
-
         # timing measurement
         print('Fault localization time(s): {}'.format(fault_loc_time))
         print('Total execution time(s): {}'.format(time.time() - overall_starttime))
+        """
 
     #
     #   solve for fairness improvement

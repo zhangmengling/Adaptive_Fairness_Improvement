@@ -505,3 +505,58 @@
 2022-03-17 22:24:40,243 - pyswarms.single.global_best - INFO - Optimize for 100 iters with {'c1': 0.41, 'c2': 0.41, 'w': 0.8}
 2022-04-29 14:50:49,998 - pyswarms.single.global_best - INFO - Optimize for 100 iters with {'c1': 0.41, 'c2': 0.41, 'w': 0.8}
 2022-08-08 12:40:17,966 - pyswarms.single.global_best - INFO - Optimize for 100 iters with {'c1': 0.41, 'c2': 0.41, 'w': 0.8}
+2022-11-04 12:39:09,272 - fontTools.subset - INFO - maxp pruned
+2022-11-04 12:39:09,301 - fontTools.subset - INFO - cmap pruned
+2022-11-04 12:39:09,310 - fontTools.subset - INFO - kern dropped
+2022-11-04 12:39:09,311 - fontTools.subset - INFO - post pruned
+2022-11-04 12:39:09,312 - fontTools.subset - INFO - FFTM dropped
+2022-11-04 12:39:09,317 - fontTools.subset - INFO - GPOS pruned
+2022-11-04 12:39:09,328 - fontTools.subset - INFO - GSUB pruned
+2022-11-04 12:39:09,331 - fontTools.subset - INFO - name pruned
+2022-11-04 12:39:09,349 - fontTools.subset - INFO - glyf pruned
+2022-11-04 12:39:09,352 - fontTools.subset - INFO - Added gid0 to subset
+2022-11-04 12:39:09,353 - fontTools.subset - INFO - Added first four glyphs to subset
+2022-11-04 12:39:09,353 - fontTools.subset - INFO - Closing glyph list over 'GSUB': 26 glyphs before
+2022-11-04 12:39:09,353 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'y', 'zero']
+2022-11-04 12:39:09,356 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92]
+2022-11-04 12:39:09,363 - fontTools.subset - INFO - Closed glyph list over 'GSUB': 29 glyphs after
+2022-11-04 12:39:09,363 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'fl', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'uniFB00', 'uniFB04', 'y', 'zero']
+2022-11-04 12:39:09,364 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92, 5038, 5040, 5042]
+2022-11-04 12:39:09,364 - fontTools.subset - INFO - Closing glyph list over 'MATH': 29 glyphs before
+2022-11-04 12:39:09,364 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'fl', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'uniFB00', 'uniFB04', 'y', 'zero']
+2022-11-04 12:39:09,364 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92, 5038, 5040, 5042]
+2022-11-04 12:39:09,366 - fontTools.subset - INFO - Closed glyph list over 'MATH': 29 glyphs after
+2022-11-04 12:39:09,366 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'fl', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'uniFB00', 'uniFB04', 'y', 'zero']
+2022-11-04 12:39:09,366 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92, 5038, 5040, 5042]
+2022-11-04 12:39:09,366 - fontTools.subset - INFO - Closing glyph list over 'glyf': 29 glyphs before
+2022-11-04 12:39:09,367 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'fl', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'uniFB00', 'uniFB04', 'y', 'zero']
+2022-11-04 12:39:09,367 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92, 5038, 5040, 5042]
+2022-11-04 12:39:09,367 - fontTools.subset - INFO - Closed glyph list over 'glyf': 29 glyphs after
+2022-11-04 12:39:09,367 - fontTools.subset - INFO - Glyph names: ['.notdef', '.null', 'C', 'E', 'a', 'c', 'e', 'eight', 'f', 'five', 'fl', 'four', 'l', 'nonmarkingreturn', 'one', 'period', 'r', 's', 'six', 'space', 't', 'three', 'two', 'u', 'underscore', 'uniFB00', 'uniFB04', 'y', 'zero']
+2022-11-04 12:39:09,368 - fontTools.subset - INFO - Glyph IDs:   [0, 1, 2, 3, 17, 19, 20, 21, 22, 23, 24, 25, 27, 38, 40, 66, 68, 70, 72, 73, 79, 85, 86, 87, 88, 92, 5038, 5040, 5042]
+2022-11-04 12:39:09,368 - fontTools.subset - INFO - Retaining 29 glyphs
+2022-11-04 12:39:09,370 - fontTools.subset - INFO - head subsetting not needed
+2022-11-04 12:39:09,371 - fontTools.subset - INFO - hhea subsetting not needed
+2022-11-04 12:39:09,371 - fontTools.subset - INFO - maxp subsetting not needed
+2022-11-04 12:39:09,371 - fontTools.subset - INFO - OS/2 subsetting not needed
+2022-11-04 12:39:09,411 - fontTools.subset - INFO - hmtx subsetted
+2022-11-04 12:39:09,417 - fontTools.subset - INFO - cmap subsetted
+2022-11-04 12:39:09,428 - fontTools.subset - INFO - fpgm subsetting not needed
+2022-11-04 12:39:09,428 - fontTools.subset - INFO - prep subsetting not needed
+2022-11-04 12:39:09,428 - fontTools.subset - INFO - cvt  subsetting not needed
+2022-11-04 12:39:09,428 - fontTools.subset - INFO - loca subsetting not needed
+2022-11-04 12:39:09,429 - fontTools.subset - INFO - post subsetted
+2022-11-04 12:39:09,429 - fontTools.subset - INFO - gasp subsetting not needed
+2022-11-04 12:39:09,450 - fontTools.subset - INFO - GDEF subsetted
+2022-11-04 12:39:09,500 - fontTools.subset - INFO - GPOS subsetted
+2022-11-04 12:39:09,502 - fontTools.subset - INFO - GSUB subsetted
+2022-11-04 12:39:09,503 - fontTools.subset - INFO - MATH subsetted
+2022-11-04 12:39:09,503 - fontTools.subset - INFO - name subsetting not needed
+2022-11-04 12:39:09,507 - fontTools.subset - INFO - glyf subsetted
+2022-11-04 12:39:09,508 - fontTools.subset - INFO - head pruned
+2022-11-04 12:39:09,509 - fontTools.subset - INFO - OS/2 Unicode ranges pruned: [0]
+2022-11-04 12:39:09,510 - fontTools.subset - INFO - glyf pruned
+2022-11-04 12:39:09,510 - fontTools.subset - INFO - GDEF pruned
+2022-11-04 12:39:09,511 - fontTools.subset - INFO - GPOS pruned
+2022-11-04 12:39:09,511 - fontTools.subset - INFO - GSUB pruned
+2022-11-04 12:39:15,373 - pyswarms.single.global_best - INFO - Optimize for 100 iters with {'c1': 0.41, 'c2': 0.41, 'w': 0.8}

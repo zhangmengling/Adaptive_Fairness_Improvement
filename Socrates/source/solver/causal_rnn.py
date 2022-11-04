@@ -293,8 +293,6 @@ class CausalImpl():
         all_ave_diff = []
 
     def analyze_causal_effect(self, ie_ave_matrix):
-        print("-->standard deviation", self.stand_deviation(ie_ave_matrix))
-        print("-->average difference", self.average_difference(ie_ave_matrix))
         all_layers = np.array(ie_ave_matrix)[:, 1]
         for layer in layers:
             all_per_layer = []
@@ -363,7 +361,6 @@ class CausalImpl():
 
         self.sens_idx = sens_idx
 
-        print("-->self.sens_idx", self.sens_idx)
         print(type(self.sens_idx))
 
         if isinstance(self.sens_idx, list):
@@ -416,7 +413,6 @@ class CausalImpl():
                     ie_ave.append(ie_ave_l)
                     col = col + 1
             elif self.object == "feature":
-                print("-->self.object:", self.object)
                 print('Analyze causal attribution of features to unfairness:')
                 ie_ave = []
                 row = 0
@@ -458,15 +454,13 @@ class CausalImpl():
                     ax[row, col].set_ylabel('Causal Attributions(ACE)')
 
                     # Baseline is np.mean(expectation_do_x)
-                    print("-->min, max", min, max)
                     all_vals = list(set(np.linspace(min, max, self.stepsize, dtype=int)))
                     all_vals.sort()
-                    print("-->all_vals", all_vals)
-                    print("-->ie", ie)
+                    # print("-->all_vals", all_vals)
+                    # print("-->ie", ie)
                     ax[row, col].plot(all_vals, np.array(ie) - np.mean(np.array(ie)),
                                       label=str(do_feature), color='b')
-                    print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
-                    # print("-->np.array(ie) - np.mean(np.array(ie))", np.array(ie) - np.mean(np.array(ie)))
+                    # print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
                     ax[row, col].legend()
 
                     ie_ave.append(ie_ave_l)
@@ -500,7 +494,6 @@ class CausalImpl():
             else:
                 print("-->basic unfairness:", self.get_basic_dy(self.sens_idx))
 
-                print("-->self.object:", self.object)
                 print('Analyze causal attribution of features to unfairness:')
                 feature_ie_ave = []
                 row = 0
@@ -542,15 +535,13 @@ class CausalImpl():
                     ax[row, col].set_ylabel('Causal Attributions(ACE)')
 
                     # Baseline is np.mean(expectation_do_x)
-                    print("-->min, max", min, max)
-                    # all_vals = list(set(np.linspace(min, max, self.stepsize, dtype=int)))
+                    # print("-->min, max", min, max)
                     all_vals.sort()
-                    print("-->all_vals", all_vals)
-                    print("-->ie", ie)
+                    # print("-->all_vals", all_vals)
+                    # print("-->ie", ie)
                     ax[row, col].plot(all_vals, np.array(ie) - np.mean(np.array(ie)),
                                       label=str(do_feature), color='b')
-                    print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
-                    # print("-->np.array(ie) - np.mean(np.array(ie))", np.array(ie) - np.mean(np.array(ie)))
+                    # print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
                     ax[row, col].legend()
 
                     feature_ie_ave.append(ie_ave_l[0])
@@ -984,39 +975,6 @@ class CausalImpl():
         #'''
         fault_loc_time = time.time() - overall_starttime
 
-        # randomly select 10 neurons
-        '''#random neuron
-        self.r_neuron = []
-        self.r_layer = []
-
-        for i in range (0, self.repair_num):
-            # layer
-            ran_layer_idx = int(np.random.rand() * (len(self.do_neuron)))
-
-            ran_layer = self.do_layer[ran_layer_idx]
-            ran_neuron = int(np.random.rand() * len(self.do_neuron[ran_layer_idx]))
-            self.r_neuron.append(ran_neuron)
-            self.r_layer.append(ran_layer)
-
-        '''
-
-        ''' #all neuron
-        self.r_neuron = []
-        self.r_layer = []
-        i = 0
-        for _layer in self.do_layer:
-            for _neuron in self.do_neuron[i]:
-                self.r_layer.append(_layer)
-                self.r_neuron.append(_neuron)
-            i = i + 1
-
-        '''
-
-        '''#fix neuron 
-        self.r_layer = [4, 4, 2, 2, 2, 0, 0, 0, 2, 0, 0, 2, 2]
-        self.r_neuron = [11, 7, 30, 31, 13, 58, 62, 54, 7, 28, 20, 26, 25]
-        '''
-
         print('Repair:')
 
         print('\nRepair layer: {}'.format(self.r_layer))
@@ -1234,120 +1192,6 @@ class CausalImpl():
         dtmc.analyze_fairness_causal(model, self.sensitive, len(self.sens_value), self.timeout, self.criteria,
                                      self.error, self.delta, self.acc_datapath, self.resultpath, [], [], [])
 
-        # aequitas
-        #array, avg = self.aequitas_test()
-        #print(array)
-        #print(avg)
-        '''
-        # do causal anaylysis
-        ie_ave_matrix = []
-        if not self.plot:
-            ie_ave = []
-            col = 0
-            for do_layer in self.do_layer:
-                print('Analyzing layer {}'.format(col))
-                ie_ave_l = []
-                neuron_idx = 0
-                for do_neuron in self.do_neuron[col]:
-                    ie, min, max = self.get_ie_do_h_dy(do_layer, do_neuron, self.sens_idx, self.sens_value, self.stepsize, 0)
-
-                    ie_ave_l.append(np.mean(np.array(ie)))
-                    new_entry = []
-                    new_entry.append(np.mean(np.array(ie)))
-                    new_entry.append(col + 1)
-                    new_entry.append(neuron_idx)
-                    ie_ave_matrix.append(new_entry)
-
-                    neuron_idx = neuron_idx + 1
-
-                ie_ave.append(ie_ave_l)
-                col = col + 1
-
-        else:
-            ie_ave = []
-            plt_row = 0
-            for i in range (0, len(self.do_layer)):
-                if len(self.do_neuron[i]) > plt_row:
-                    plt_row = len(self.do_neuron[i])
-            plt_col = len(self.do_layer)
-            fig, ax = plt.subplots(plt_row, plt_col, figsize=(3.5*plt_col, 2.5*plt_row), sharex=False, sharey=True)
-            fig.tight_layout()
-
-            row = 0
-            col = 0
-            for do_layer in self.do_layer:
-                row = 0
-                print('Analyzing layer {}'.format(col))
-                ie_ave_l = []
-                for do_neuron in self.do_neuron[col]:
-                    ie, min, max = self.get_ie_do_h_dy(do_layer, do_neuron, self.sens_idx, self.sens_value, self.stepsize, 0)
-
-                    ie_ave_l.append(np.mean(np.array(ie)))
-
-                    # plot ACE
-                    #ax[row, col].set_title('N_' + str(do_layer) + '_' + str(do_neuron))
-                    ax[row, col].set_xlabel('Intervention Value(alpha)')
-                    ax[row, col].set_ylabel('Causal Attributions(ACE)')
-
-                    # Baseline is np.mean(expectation_do_x)
-                    ax[row, col].plot(np.linspace(min, max, self.stepsize), np.array(ie) - np.mean(np.array(ie)), label = str(do_layer) + '_' + str(do_neuron), color='b')
-                    ax[row, col].legend()
-
-                    row = row + 1
-                if row == len(self.do_neuron[col]):
-                    for off in range(row, plt_row):
-                        ax[off, col].set_axis_off()
-                ie_ave.append(ie_ave_l)
-                col = col + 1
-
-            plt.show()
-            plt.savefig(self.resultpath + '/' + 'all' + ".png")
-
-            # plot average ie
-            plt.figure()
-            plt.ylabel('Average IE')
-
-            color_tab = ['b','g','r','c','m']
-
-            idx = 0
-            for i in range (0, len(ie_ave)):
-                for j in range (0, len(ie_ave[i])):
-                    plt.scatter(idx, ie_ave[i][j], color=color_tab[i])
-                    idx = idx + 1
-
-            plt.show()
-
-            # save avg ie
-            for ie_l in ie_ave:
-                print(ie_l)
-
-        ie_ave_matrix.sort()
-        ie_ave_matrix = ie_ave_matrix[::-1]
-        for item in ie_ave_matrix:
-            print(item)
-
-        self.r_neuron = []
-        self.r_layer = []
-        for i in range (0, self.repair_num):
-            self.r_layer.append(int(ie_ave_matrix[i][1]))
-            self.r_neuron.append(int(ie_ave_matrix[i][2]))
-
-        print('\nRepair layer: {}'.format(self.r_layer))
-        print('Repair neuron: {}'.format(self.r_neuron))
-
-        # start repair
-        best_pos = self.repair()
-
-
-        # verify prob diff and model accuracy after repair , weight, layer, neuron, sens_idx, sens_value, class_n
-        r_id_rate, r_acc = self.test_repaired_net(best_pos, self.r_layer, self.r_neuron, self.sens_idx, self.sens_value, self.class_n)
-        print('Percentage of discriminatory instance after repair: {}'.format(r_id_rate))
-        print('Network Accuracy after repair: {}'.format(r_acc))
-
-        ori_accuracy = self.net_accuracy_test([], [], [])
-        print('Network Accuracy before repair: {}'.format(ori_accuracy))
-
-        '''
         self.r_layer = [3, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 2, 1]
         self.r_neuron = [11, 56, 31, 18, 7, 10, 27, 13, 12, 2, 5, 22, 1]
         best_pos = [ 0.41925645,  0.09721272,  0.13655903,  0.76384682, -0.18780243,  0.8893769,
@@ -1357,12 +1201,7 @@ class CausalImpl():
         # analyze fairness after repair
         dtmc.analyze_fairness_causal(model, self.sensitive, len(self.sens_value), self.timeout, self.criteria, self.error,
                                      self.delta, self.acc_datapath, self.resultpath, self.r_layer, self.r_neuron, best_pos)
-        # aequitas
-        #print('After repair')
-        #array, avg = self.aequitas_test(rep=True)
-        #print(array)
-        #print(avg)
-        # timing measurement
+
         print('Total execution time(s): {}'.format(time.time() - overall_starttime))
 
     #
@@ -1371,11 +1210,6 @@ class CausalImpl():
     def get_y_do_h(self, do_layer, do_neuron, do_value, class_n=0):
         pathX = self.datapath + '/'
         pathY = self.datapath + '/labels.txt'
-
-        #y0s = np.array(ast.literal_eval(read(pathY)))
-
-        #l_pass = 0
-        #l_fail = 0
 
         y_sum = 0.0
 
@@ -1417,113 +1251,6 @@ class CausalImpl():
         #l_fail = 0
 
         dy_sum = 0.0
-
-        # for i in range(self.datalen):
-        #     # random index
-        #     #i = int(np.random.rand() * self.datalen_tot)
-        #     x0_file = pathX + 'data' + str(i) + '.txt'
-        #     # x0_file = pathX + str(i) + '.txt'
-        #     x0 = np.array(ast.literal_eval(read(x0_file)))
-        #
-        #     y = self.model.apply_intervention(x0, do_layer, do_neuron, do_value)
-        #     #lbl_x0 = np.argmax(y, axis=1)[0]
-        #
-        #     y = y[0][class_n]
-        #
-        #     max_dy = 0.0
-        #     x_n = x0
-        #     for sens_val in self.sens_value:
-        #         if sens_val == x0[sens_idx]:
-        #             continue
-        #         x_n[sens_idx] = sens_val
-        #         y_n = self.model.apply_intervention(x_n, do_layer, do_neuron, do_value)
-        #         y_n = y_n[0][class_n]
-        #         diff_n = np.abs(y_n - y)
-        #         if max_dy < diff_n:
-        #             max_dy = diff_n
-        #
-        #     dy_sum = dy_sum + max_dy
-        #
-        # avg = dy_sum / self.datalen
-
-        ### group metric
-        # if isinstance(sens_idx, list):
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     # sens_inx = [7, 8]
-        #     # sens_value = [[0, 1], [0, 1]]
-        #     indexs = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        #     for index in indexs:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             if x0[self.sens_idx[0]] == self.sens_value[0][index[0]] and x0[self.sens_idx[1]] == \
-        #                     self.sens_value[1][index[1]]:
-        #                 # y = self.model.apply_repair_fixed(x0, do_neuron, do_value, do_layer)
-        #                 # y = np.argmax(y, axis=1)[0]
-        #                 y = self.model.apply_intervention(x0, do_layer, do_neuron, do_value)
-        #                 # y = y[0][class_n]
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
-        #
-        # else:
-        #     ####### single group_metric
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     for sens_val in self.sens_value:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             if sens_val == x0[sens_idx]:
-        #                 # y = self.model.apply_repair_fixed(x0, do_neuron, do_value, do_layer)
-        #                 # y = np.argmax(y, axis=1)[0]
-        #                 y = self.model.apply_intervention(x0, do_layer, do_neuron, do_value)
-        #                 # y = y[0][class_n]
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
-
 
         ## individual metric
         if isinstance(sens_idx, list):
@@ -1585,41 +1312,6 @@ class CausalImpl():
             individual_metric = diff / num_file
             avg = individual_metric
 
-
-
-        ###### individual fairness
-        # dy_sum = 0.0
-        # for i in range(self.datalen):
-        #     # random index
-        #     x0_file = pathX + 'data' + str(i) + '.txt'
-        #     x0 = np.array(ast.literal_eval(read(x0_file)))
-        #
-        #     y = self.model.apply_intervention(x0, do_layer, do_neuron, do_value)
-        #     #lbl_x0 = np.argmax(y, axis=1)[0]
-        #
-        #     y = y[0][class_n]
-        #
-        #     max_dy = 0.0
-        #     x_n = x0
-        #     for sens_val in self.sens_value:
-        #         if sens_val == x0[sens_idx]:
-        #             continue
-        #         x_n[sens_idx] = sens_val
-        #         y_n = self.model.apply_repair_fixed(x_n, do_neuron, do_value, do_layer)
-        #         y_n = np.argmax(y, axis=1)[0]
-        #         if y_n != y:
-        #             dy_sum += 1
-        #             break
-        #         # y_n = self.model.apply_intervention(x_n, do_layer, do_neuron, do_value)
-        #         # y_n = y_n[0][class_n]
-        #         # diff_n = np.abs(y_n - y)
-        #         # if max_dy < diff_n:
-        #         #     max_dy = diff_n
-        #
-        #     # dy_sum = dy_sum + max_dy
-        #
-        # avg = dy_sum / self.datalen
-
         return avg
 
     def get_basic_dy(self, sens_idx, class_n=0):
@@ -1628,84 +1320,6 @@ class CausalImpl():
 
         files = os.listdir(pathX)
         num_file = len(files)
-
-        # ### group metric
-        # if isinstance(sens_idx, list):
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     # sens_inx = [7, 8]
-        #     # sens_value = [[0, 1], [0, 1]]
-        #     indexs = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        #     for index in indexs:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             if x0[self.sens_idx[0]] == self.sens_value[0][index[0]] and x0[self.sens_idx[1]] == self.sens_value[1][index[1]]:
-        #                 # y = self.model.apply_repair_fixed(x0, do_neuron, do_value, do_layer)
-        #                 # y = np.argmax(y, axis=1)[0]
-        #                 y = self.model.apply(x0)
-        #                 # y = y[0][class_n]
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     print("-->probabilities", probabilities)
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
-        #
-        # else:
-        #     ####### single group_metric
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     for sens_val in self.sens_value:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             if sens_val == x0[sens_idx]:
-        #                 # y = self.model.apply_repair_fixed(x0, do_neuron, do_value, do_layer)
-        #                 # y = np.argmax(y, axis=1)[0]
-        #                 y = self.model.apply(x0)
-        #                 # y = y[0][class_n]
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
 
         # individual metric
         ## individual metric
@@ -1769,33 +1383,6 @@ class CausalImpl():
             individual_metric = diff / num_file
             avg = individual_metric
 
-        # dy_sum = 0.0
-        #
-        # for i in range(self.datalen):
-        #     # random index
-        #     #i = int(np.random.rand() * self.datalen_tot)
-        #     x0_file = pathX + 'data' + str(i) + '.txt'
-        #     # x0_file = pathX + str(i) + '.txt'
-        #     x0 = np.array(ast.literal_eval(read(x0_file)))
-        #     # x0[do_feature] = do_value
-        #     y = self.model.apply(x0)
-        #     y = y[0][class_n]
-        #     max_dy = 0.0
-        #     x_n = x0
-        #     for sens_val in self.sens_value:
-        #         if sens_val == x0[sens_idx]:
-        #             continue
-        #         x_n[sens_idx] = sens_val
-        #         y_n = self.model.apply(x_n)
-        #         y_n = y_n[0][class_n]
-        #         diff_n = np.abs(y_n - y)
-        #         if max_dy < diff_n:
-        #             max_dy = diff_n
-        #
-        #     dy_sum = dy_sum + max_dy
-        #
-        # avg = dy_sum / self.datalen
-
         return avg
 
 
@@ -1805,83 +1392,6 @@ class CausalImpl():
 
         files = os.listdir(pathX)
         num_file = len(files)
-
-        #l_pass = 0
-        #l_fail = 0
-
-        #### group metric
-        # if isinstance(sens_idx, list):
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     # sens_inx = [7, 8]
-        #     # sens_value = [[0, 1], [0, 1]]
-        #     indexs = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        #     for index in indexs:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             x0[do_feature] = do_value
-        #             if x0[self.sens_idx[0]] == self.sens_value[0][index[0]] and x0[self.sens_idx[1]] == \
-        #                     self.sens_value[1][index[1]]:
-        #                 y = self.model.apply(x0)
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
-        #
-        # else:
-        #     ####### single group_metric
-        #     all_sens_group = []
-        #     all_sens_y = []
-        #     for sens_val in self.sens_value:
-        #         sens_group = []
-        #         sens_y = []
-        #         # for idx in range(self.datalen):
-        #         for idx in range(num_file - 1):
-        #             # i = int(np.random.rand() * self.datalen_tot)
-        #             i = idx
-        #             x0_file = pathX + 'data' + str(i) + '.txt'
-        #             x0 = np.array(ast.literal_eval(read(x0_file)))
-        #             x0[do_feature] = do_value
-        #             if sens_val == x0[sens_idx]:
-        #                 y = self.model.apply(x0)
-        #                 y = list(y[0]).index(max(list(y[0])))
-        #                 sens_group.append(x0)
-        #                 sens_y.append(y)
-        #         all_sens_group.append(sens_group)
-        #         all_sens_y.append(sens_y)
-        #
-        #     fav_label = 1
-        #     probabilities = []
-        #     for sens_y in all_sens_y:
-        #         if sens_y == []:
-        #             continue
-        #         # print("-->sens_y", sens_y)
-        #         # fav_num = sens_y.count(fav_label)
-        #         fav_num = len([y for y in sens_y if y == fav_label])
-        #         probabilities.append(fav_num / float(len(sens_y)))
-        #
-        #     group_metric = max(probabilities) - min(probabilities)
-        #     avg = group_metric
 
         ## individual metric
         if isinstance(sens_idx, list):
@@ -1938,38 +1448,6 @@ class CausalImpl():
                     diff += 1
             individual_metric = diff / num_file
             avg = individual_metric
-
-        # dy_sum = 0.0
-        #
-        # for i in range(self.datalen):
-        #     # random index
-        #     #i = int(np.random.rand() * self.datalen_tot)
-        #     # x0_file = pathX + str(i) + '.txt'
-        #     x0_file = pathX + 'data' + str(i) + '.txt'
-        #     x0 = np.array(ast.literal_eval(read(x0_file)))
-        #
-        #     x0[do_feature] = do_value
-        #
-        #     # y = self.model.apply_intervention(x0, do_layer, do_neuron, do_value)
-        #     y = self.model.apply(x0)
-        #     y = y[0][class_n]
-        #
-        #     max_dy = 0.0
-        #     x_n = x0
-        #     for sens_val in self.sens_value:
-        #         if sens_val == x0[sens_idx]:
-        #             continue
-        #         x_n[sens_idx] = sens_val
-        #         # y_n = self.model.apply_intervention(x_n, do_layer, do_neuron, do_value)
-        #         y_n = self.model.apply(x0)
-        #         y_n = y_n[0][class_n]
-        #         diff_n = np.abs(y_n - y)
-        #         if max_dy < diff_n:
-        #             max_dy = diff_n
-        #
-        #     dy_sum = dy_sum + max_dy
-        #
-        # avg = dy_sum / self.datalen
 
         return avg
 
