@@ -385,8 +385,6 @@ class LSTM_1(Layer):
             h_t0 = np.multiply(o_t, self.activation_tanh(c_t0))
             h_sequences.append(h_t0)
 
-            print("-->shapes:", f_t.shape, i_t.shape, c_hat_t.shape, o_t.shape, c_t0.shape, h_t0.shape)
-
             for i in range(1, x.shape[1]):
                 one_x = np.array(x[:, i, :])
                 f_t = self.activation_sigmoid(np.dot(one_x, w_fx) + np.dot(h_t0, w_fh) + b_f)
@@ -397,7 +395,6 @@ class LSTM_1(Layer):
                 h_t = np.multiply(o_t, self.activation_tanh(c_t))
                 h_t0 = h_t
                 c_t0 = c_t
-                print("-->shapes:", f_t.shape, i_t.shape, c_hat_t.shape, o_t.shape, c_t0.shape, h_t0.shape)
                 h_sequences.append(h_t0)
 
             self.h_t = np.array(h_sequences)
@@ -413,7 +410,6 @@ class LSTM_1(Layer):
             c_t0 = np.multiply(i_t, c_hat_t)
             h_t0 = np.multiply(o_t, self.activation_tanh(c_t0))
 
-            print("-->shapes:", f_t.shape, i_t.shape, c_hat_t.shape, o_t.shape, c_t0.shape, h_t0.shape)
 
             for i in range(1, x.shape[1]):
                 one_x = np.array(x[:, i, :])
@@ -425,7 +421,6 @@ class LSTM_1(Layer):
                 h_t = np.multiply(o_t, self.activation_tanh(c_t))
                 h_t0 = h_t
                 c_t0 = c_t
-                print("-->shapes:", f_t.shape, i_t.shape, c_hat_t.shape, o_t.shape, c_t0.shape, h_t0.shape)
 
             self.h_t = h_t
             # print("-->self.h_t.shape", self.h_t.shape)

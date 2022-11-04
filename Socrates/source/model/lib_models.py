@@ -438,13 +438,13 @@ class Model:
         size_i = np.prod(shape_i)
 
         length = int(x.size / size_i)
-        print("-->lenght", length)
+        # print("-->length", length)
 
         # print("-->self.shape", self.shape)
         # print("-->shape_i", shape_i)
-        print("-->size_i", size_i)
-        print("-->x.size", x.size)
-        print("-->x", x)
+        # print("-->size_i", size_i)
+        # print("-->x.size", x.size)
+        # print("-->x", x)
 
         hidden = 0.0
 

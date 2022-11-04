@@ -330,7 +330,6 @@ class CausalImpl():
 
         self.sens_idx = sens_idx
 
-        print("-->self.sens_idx", self.sens_idx)
         print(type(self.sens_idx))
 
         if isinstance(self.sens_idx, list):
@@ -383,7 +382,6 @@ class CausalImpl():
                     ie_ave.append(ie_ave_l)
                     col = col + 1
             elif self.object == "feature":
-                print("-->self.object:", self.object)
                 print('Analyze causal attribution of features to unfairness:')
                 ie_ave = []
                 row = 0
@@ -425,15 +423,14 @@ class CausalImpl():
                     ax[row, col].set_ylabel('Causal Attributions(ACE)')
 
                     # Baseline is np.mean(expectation_do_x)
-                    print("-->min, max", min, max)
+                    # print("-->min, max", min, max)
                     all_vals = list(set(np.linspace(min, max, self.stepsize, dtype=int)))
                     all_vals.sort()
-                    print("-->all_vals", all_vals)
-                    print("-->ie", ie)
+                    # print("-->all_vals", all_vals)
+                    # print("-->ie", ie)
                     ax[row, col].plot(all_vals, np.array(ie) - np.mean(np.array(ie)),
                                       label=str(do_feature), color='b')
-                    print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
-                    # print("-->np.array(ie) - np.mean(np.array(ie))", np.array(ie) - np.mean(np.array(ie)))
+                    # print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
                     ax[row, col].legend()
 
                     ie_ave.append(ie_ave_l)
@@ -467,7 +464,6 @@ class CausalImpl():
             else:
                 print("-->basic unfairness:", self.get_basic_dy(self.sens_idx))
 
-                print("-->self.object:", self.object)
                 print('Analyze causal attribution of features to unfairness:')
                 feature_ie_ave = []
                 row = 0
@@ -509,15 +505,14 @@ class CausalImpl():
                     ax[row, col].set_ylabel('Causal Attributions(ACE)')
 
                     # Baseline is np.mean(expectation_do_x)
-                    print("-->min, max", min, max)
+                    # print("-->min, max", min, max)
                     # all_vals = list(set(np.linspace(min, max, self.stepsize, dtype=int)))
                     all_vals.sort()
-                    print("-->all_vals", all_vals)
-                    print("-->ie", ie)
+                    # print("-->all_vals", all_vals)
+                    # print("-->ie", ie)
                     ax[row, col].plot(all_vals, np.array(ie) - np.mean(np.array(ie)),
                                       label=str(do_feature), color='b')
-                    print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
-                    # print("-->np.array(ie) - np.mean(np.array(ie))", np.array(ie) - np.mean(np.array(ie)))
+                    # print("-->n_values", list(set(np.linspace(min, max, self.stepsize, dtype=int))))
                     ax[row, col].legend()
 
                     feature_ie_ave.append(ie_ave_l[0])
@@ -631,7 +626,7 @@ class CausalImpl():
 
                 plt.axhline(basic, c="black", ls="--")
                 idx = 0
-                print("-->ie_ave", high_ie_ave)
+                # print("-->ie_ave", high_ie_ave)
                 for i in range(0, len(high_ie_ave)):
                     label = labels[i]
                     for j in range(0, len(high_ie_ave[i])):
@@ -654,7 +649,7 @@ class CausalImpl():
 
                 plt.axhline(basic, c="black", ls="--")
                 idx = 0
-                print("-->ie_ave", ie_ave)
+                # print("-->ie_ave", ie_ave)
                 for i in range(0, len(ie_ave)):
                     label = labels[i]
                     for j in range(0, len(ie_ave[i])):
@@ -751,30 +746,6 @@ class CausalImpl():
             plt.savefig(self.resultpath + '/' + 'average' + ".png")
             print("-->save path", self.resultpath + '/' + 'average' + ".png")
 
-            # plt.figure()
-            # plt.ylabel('variance coefficient')
-            # idx = 0
-            # for i in range (0, len(ie_variance)):
-            #     for j in range (0, len(ie_variance[i])):
-            #         plt.scatter(idx, ie_variance[i][j], color=color_tab[i])
-            #         idx = idx + 1
-            #
-            # plt.savefig(self.resultpath + '/' + 'average_variance' + ".png")
-            # print("-->save path", self.resultpath + '/' + 'average_variance' + ".png")
-
-            # plt.figure()
-            # plt.ylabel('Sum ACE')
-            # idx = 0
-            # for i in range(0, len(ace)):
-            #     for j in range(0, len(ace[i])):
-            #         plt.scatter(idx, ace[i][j], color=color_tab[i])
-            #         idx = idx + 1
-            #
-            # plt.savefig(self.resultpath + '/' + 'average_ace' + ".png")
-            # print("-->save path", self.resultpath + '/' + 'average_ace' + ".png")
-            #
-            # plt.show()
-
             # save avg ie
             for ie_l in ie_ave:
                 print(ie_l)
@@ -788,13 +759,6 @@ class CausalImpl():
         # print("-->analyze causal effect", self.analyze_causal_effect(ie_ave_matrix))
         print("-->standard deviation", self.stand_deviation(ie_ave_matrix))
         print("-->average difference", self.average_difference(ie_ave_matrix))
-
-
-        # self.r_neuron = []
-        # self.r_layer = []
-        # for i in range(0, self.repair_num):
-        #     self.r_layer.append(int(ie_ave_matrix[i][1]))
-        #     self.r_neuron.append(int(ie_ave_matrix[i][2]))
 
 
         fault_loc_time = time.time() - overall_starttime
@@ -950,39 +914,6 @@ class CausalImpl():
             self.r_neuron.append(int(ie_ave_matrix[i][2]))
         #'''
         fault_loc_time = time.time() - overall_starttime
-
-        # randomly select 10 neurons
-        '''#random neuron
-        self.r_neuron = []
-        self.r_layer = []
-
-        for i in range (0, self.repair_num):
-            # layer
-            ran_layer_idx = int(np.random.rand() * (len(self.do_neuron)))
-
-            ran_layer = self.do_layer[ran_layer_idx]
-            ran_neuron = int(np.random.rand() * len(self.do_neuron[ran_layer_idx]))
-            self.r_neuron.append(ran_neuron)
-            self.r_layer.append(ran_layer)
-
-        '''
-
-        ''' #all neuron
-        self.r_neuron = []
-        self.r_layer = []
-        i = 0
-        for _layer in self.do_layer:
-            for _neuron in self.do_neuron[i]:
-                self.r_layer.append(_layer)
-                self.r_neuron.append(_neuron)
-            i = i + 1
-
-        '''
-
-        '''#fix neuron 
-        self.r_layer = [4, 4, 2, 2, 2, 0, 0, 0, 2, 0, 0, 2, 2]
-        self.r_neuron = [11, 7, 30, 31, 13, 58, 62, 54, 7, 28, 20, 26, 25]
-        '''
 
         print('Repair:')
 
@@ -1397,33 +1328,6 @@ class CausalImpl():
             individual_metric = diff / num_file
             avg = individual_metric
 
-        # dy_sum = 0.0
-        #
-        # for i in range(self.datalen):
-        #     # random index
-        #     #i = int(np.random.rand() * self.datalen_tot)
-        #     x0_file = pathX + 'data' + str(i) + '.txt'
-        #     # x0_file = pathX + str(i) + '.txt'
-        #     x0 = np.array(ast.literal_eval(read(x0_file)))
-        #     # x0[do_feature] = do_value
-        #     y = self.model.apply(x0)
-        #     y = y[0][class_n]
-        #     max_dy = 0.0
-        #     x_n = x0
-        #     for sens_val in self.sens_value:
-        #         if sens_val == x0[sens_idx]:
-        #             continue
-        #         x_n[sens_idx] = sens_val
-        #         y_n = self.model.apply(x_n)
-        #         y_n = y_n[0][class_n]
-        #         diff_n = np.abs(y_n - y)
-        #         if max_dy < diff_n:
-        #             max_dy = diff_n
-        #
-        #     dy_sum = dy_sum + max_dy
-        #
-        # avg = dy_sum / self.datalen
-
         return avg
 
 
@@ -1697,7 +1601,6 @@ class CausalImpl():
             y, hidden = self.model.apply_get_h(x0, do_layer, do_neuron)
             all_hidden.append(hidden)
             # print("-->y:", y)
-            print("-->hidden:", hidden)
 
             if i == 0:
                 hidden_max = hidden
@@ -1718,7 +1621,7 @@ class CausalImpl():
         else:
             # for h_val in np.linspace(hidden_min, hidden_max, num_step):
             all_hidden = np.linspace(hidden_min, hidden_max, num_step)
-            print("-->all_hidden", all_hidden)
+            # print("-->all_hidden", all_hidden)
             # all_hidden = list(set(all_hidden))
             for h_val in all_hidden:
                 dy = self.get_dy_do_h(do_layer, do_neuron, h_val, class_n, sens_idx, sens_range)
@@ -1728,7 +1631,7 @@ class CausalImpl():
         # ace = [ie[i]-np.mean(ie) for i in range(0, len(ie))]
         # print("-->ace", np.mean(ace))
         variance_coef = np.std(ie) / np.mean(ie)
-        print("-->variance_coef", variance_coef)
+        # print("-->variance_coef", variance_coef)
         # return ie, hidden_min, hidden_max
         return ie, hidden_min, hidden_max, all_hidden
 
@@ -1752,12 +1655,12 @@ class CausalImpl():
             x0_file = pathX + 'data' + str(i) + '.txt'
             x0 = np.array(ast.literal_eval(read(x0_file)))
 
-            print("-->x0:", x0)
+            # print("-->x0:", x0)
 
             # x0 = self.process_privileged(x0, sens_idx)
 
             f_x0 = x0[do_feature]
-            print("-->f_x0:", f_x0)
+            # print("-->f_x0:", f_x0)
             all_feature_vals.append(f_x0)
             if i == 0:
                 hidden_max = f_x0
@@ -1780,7 +1683,7 @@ class CausalImpl():
             all_vals = list(set(all_feature_vals))
             all_vals.sort()
             for h_val in all_vals:
-                print("-->h_val", h_val)
+                # print("-->h_val", h_val)
                 dy = self.get_dy_do_f(do_feature, h_val, class_n, sens_idx, sens_range)
                 ie.append(dy)
 
