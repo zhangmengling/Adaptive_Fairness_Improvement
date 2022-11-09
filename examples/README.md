@@ -1,16 +1,45 @@
-# AI Fairness 360 Examples (Tutorials and Demos)
+# Examples (Tutorials and Demos)
 
+## Demos with Fairness Testing
+```shell
+## pre-processing
+# RW
+python3 preprocessing_reweighing_demo.py  
+# DIR
+python3 preprocessing_disparate_impact_demo.py
+
+## in-processing
+# AD
+python3 inprocessing_adversarial_debias_demo.py
+# GR
+python3 inprocessing_gradient_reduction_demo.py
+# META
+python3 inprocessing_meta_demo.py
+# PR
+python3 inprocessing_prejudice_remover_demo.py
+
+## post-processing
+# CEO
+python3 postprocessing_ceo_demo.py
+# EO
+python3 postprocessing_eq_odds_demo.py
+# RO
+python3 postprocessing_reject_option_demo.py
+```
+
+
+## Tutorials and Demos in AI fairness 360 Examples
 This directory contains a diverse collection of jupyter notebooks that use [AI Fairness 360](http://aif360.mybluemix.net/) in various ways.
 Both tutorials and demos illustrate working code using AIF360.  Tutorials provide additional discussion that walks
 the user through the various steps of the notebook.
 
-## Tutorials
+### Tutorials
 The [Credit scoring](https://nbviewer.jupyter.org/github/Trusted-AI/AIF360/blob/master/examples/tutorial_credit_scoring.ipynb) tutorial is the recommended first tutorial to get an understanding for how AIF360 works.  It first provides a brief summary of a machine learning workflow and an overview of AIF360.  It then demonstrates the use of one fairness metric (mean difference) and one bias mitigation algorithm (optimized preprocessing) in the context of age bias in a credit scoring scenario using the [German Credit dataset](https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29).
 
 The [Medical expenditure](https://nbviewer.jupyter.org/github/Trusted-AI/AIF360/blob/master/examples/tutorial_medical_expenditure.ipynb) tutorial is a comprehensive tutorial demonstrating the interactive exploratory nature of a data scientist detecting and mitigating racial bias in a care management scenario.  It uses a variety of fairness metrics (disparate impact, average odds difference, statistical parity difference, equal opportunity difference, and Theil index) and algorithms (reweighing, prejudice remover, and disparate impact remover). It also demonstrates how explanations can be generated for predictions made by models learned with the toolkit using LIME.
 Data from the Medical Expenditure Panel Survey ([2015](https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_detail.jsp?cboPufNumber=HC-181) and [2016](https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_detail.jsp?cboPufNumber=HC-192)) is used in this tutorial.
 
-## Demos
+### Demos
 Below is a list of additional notebooks that demonstrate the use of AIF360.
 
 **NEW:** [sklearn/demo_new_features.ipynb](sklearn/demo_new_features.ipynb): highlights the
