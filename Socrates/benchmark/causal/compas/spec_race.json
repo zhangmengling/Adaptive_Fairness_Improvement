@@ -63,7 +63,7 @@
     "solve_option": "solve_fairness",
     "object": "feature, neuron",
     "timeout": 15,
-    "datapath": "benchmark/causal/compas/data_test",
+    "datapath": "benchmark/causal/compas/data_train",
     "datalen_tot": 1851,
     "datalen": 180,
     "resultpath": "benchmark/causal/compas/result",

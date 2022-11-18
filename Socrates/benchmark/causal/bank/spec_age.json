@@ -63,7 +63,7 @@
     "solve_option": "solve_fairness",
     "object": "neuron,feature",
     "timeout": 60,
-    "datapath": "benchmark/causal/bank/data_test",
+    "datapath": "benchmark/causal/bank/data_train",
     "datalen_tot": 13563,
     "datalen": 1000,
     "resultpath": "benchmark/causal/bank/result",
